@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/database/DB.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/TrainerAdd.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/EditMemberPage.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/AdminRegistration.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/TrainerAttendance.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Member_Attendance.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/Membershipadd.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/TrainerAttendance.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Admin.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/Gym_Project.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/Dashboard.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Member.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/trainerDao.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/MemberAttendace.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/EditTrainerPage.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Trainer.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/AdminDao.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/PaymentPage.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Payment.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/LoginPage.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Membership.java</file>
+        </group>
+    </open-files>
+</project-private>
