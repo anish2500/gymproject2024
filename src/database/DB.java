@@ -19,7 +19,7 @@ public class DB {
         connect();
     }
     
-
+// connection function 
 public static Connection connect(){
         try{
             String url = "jdbc:mysql://localhost:3306/db";
