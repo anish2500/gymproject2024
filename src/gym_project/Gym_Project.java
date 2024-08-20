@@ -15,6 +15,7 @@ import gym_project.view.Membershipadd;
 import gym_project.view.PaymentPage;
 import gym_project.view.TrainerAdd;
 import gym_project.view.TrainerAttendance;
+import javax.swing.JFrame;
 
 
 
@@ -22,7 +23,9 @@ import gym_project.view.TrainerAttendance;
  *
  * @author user
  */
-public class Gym_Project {
+public class Gym_Project extends JFrame {
+    
+
 
     /**
      * @param args the command line arguments
@@ -31,8 +34,9 @@ public class Gym_Project {
         // TODO code application logic here
 //       AdminRegistration ar = new AdminRegistration();
 //       ar.setVisible(true);
-         LoginPage lp = new LoginPage();
-         lp.setVisible(true);
+        Dashboard    ss = new Dashboard();
+       
+         ss.setVisible(true);
     }
     
 }

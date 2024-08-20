@@ -4,7 +4,9 @@
  */
 package gym_project.view;
 
+import static gym_project.controller.memberDao.showMembers;
 import static gym_project.controller.trainerDao.showTrainers;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +23,9 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+     
     }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,8 +43,8 @@ public class Dashboard extends javax.swing.JFrame {
         HomeofFitnessText = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         MemberAddtext = new javax.swing.JMenu();
@@ -63,6 +67,7 @@ public class Dashboard extends javax.swing.JFrame {
         setBackground(new java.awt.Color(4, 101, 130));
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(200, 25);
 
         CardioCentralText.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         CardioCentralText.setForeground(new java.awt.Color(255, 255, 255));
@@ -82,24 +87,21 @@ public class Dashboard extends javax.swing.JFrame {
         }
         jScrollPane1.setViewportView(jTable1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        try{
+            Object[][] members = showMembers();
+            String[] memberHeader = {"Name","Phone Number","Address", "Email"};
+            jTable3.setModel(new javax.swing.table.DefaultTableModel(members,memberHeader));
+        }catch(SQLException e){
+            e.printStackTrace();
+            jTable3.setModel(new DefaultTableModel(new Object[][] {{null,null,null, null}},new String[]{"Name","Phone Number","Address", "Email"}));
+        }
+        jScrollPane3.setViewportView(jTable3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(91, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -109,9 +111,9 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(HomeofFitnessText)
                         .addGap(423, 423, 423))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 937, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 937, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -121,11 +123,11 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(CardioCentralText, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(HomeofFitnessText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGap(81, 81, 81)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jMenuBar1.setBackground(new java.awt.Color(4, 101, 130));
@@ -199,6 +201,11 @@ public class Dashboard extends javax.swing.JFrame {
 
         TrainerAttendanceButton.setText("Trainer");
         TrainerAttendanceButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        TrainerAttendanceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TrainerAttendanceButtonMouseClicked(evt);
+            }
+        });
         AttendanceText.add(TrainerAttendanceButton);
 
         jMenuBar1.add(AttendanceText);
@@ -301,6 +308,9 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void TrainerEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TrainerEditMouseClicked
         // TODO add your handling code here:
+        this.dispose();
+        EditTrainerPage ss = new EditTrainerPage();
+        ss.setVisible(true);
        
     }//GEN-LAST:event_TrainerEditMouseClicked
 
@@ -322,6 +332,13 @@ public class Dashboard extends javax.swing.JFrame {
         PaymentPage ss = new PaymentPage();
         ss.setVisible(true);
     }//GEN-LAST:event_PaymentMouseClicked
+
+    private void TrainerAttendanceButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TrainerAttendanceButtonMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        TrainerAttendance ss = new TrainerAttendance();
+        ss.setVisible(true);
+    }//GEN-LAST:event_TrainerAttendanceButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -378,8 +395,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

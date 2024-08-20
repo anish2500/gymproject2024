@@ -4,6 +4,14 @@
  */
 package gym_project.view;
 
+import static gym_project.controller.PaymentDao.completePayment;
+import static gym_project.controller.memberAttendanceDao.takeAttendance;
+import gym_project.view.MemberAttendace;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -29,23 +37,16 @@ public class PaymentPage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         PaymentText = new javax.swing.JLabel();
         MemberIDText = new javax.swing.JLabel();
-        DateText = new javax.swing.JLabel();
-        NameText = new javax.swing.JLabel();
-        PhoneNumberText = new javax.swing.JLabel();
-        EmailText = new javax.swing.JLabel();
-        AmountText = new javax.swing.JLabel();
-        SubmitButton = new javax.swing.JButton();
+        PayButton = new javax.swing.JButton();
         ExtiButton = new javax.swing.JButton();
         MemberIDField = new javax.swing.JTextField();
-        NameField = new javax.swing.JTextField();
-        PHFIeld = new javax.swing.JTextField();
-        EmailField = new javax.swing.JTextField();
-        AmountField = new javax.swing.JTextField();
-        Datefield = new com.toedter.calendar.JDateChooser();
+        AmountText = new javax.swing.JLabel();
+        AmountTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(550,150);
 
         PaymentText.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         PaymentText.setForeground(new java.awt.Color(255, 255, 255));
@@ -55,30 +56,15 @@ public class PaymentPage extends javax.swing.JFrame {
         MemberIDText.setForeground(new java.awt.Color(255, 255, 255));
         MemberIDText.setText("Member ID:");
 
-        DateText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        DateText.setForeground(new java.awt.Color(255, 255, 255));
-        DateText.setText("Date:");
-
-        NameText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        NameText.setForeground(new java.awt.Color(255, 255, 255));
-        NameText.setText("Name:");
-
-        PhoneNumberText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        PhoneNumberText.setForeground(new java.awt.Color(255, 255, 255));
-        PhoneNumberText.setText("Phone Number:");
-
-        EmailText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        EmailText.setForeground(new java.awt.Color(255, 255, 255));
-        EmailText.setText("Email:");
-
-        AmountText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        AmountText.setForeground(new java.awt.Color(255, 255, 255));
-        AmountText.setText("Amount:");
-
-        SubmitButton.setBackground(new java.awt.Color(57, 20, 162));
-        SubmitButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        SubmitButton.setForeground(new java.awt.Color(255, 255, 255));
-        SubmitButton.setText("Submit");
+        PayButton.setBackground(new java.awt.Color(57, 20, 162));
+        PayButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        PayButton.setForeground(new java.awt.Color(255, 255, 255));
+        PayButton.setText("Submit");
+        PayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PayButtonActionPerformed(evt);
+            }
+        });
 
         ExtiButton.setBackground(new java.awt.Color(57, 20, 162));
         ExtiButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -89,16 +75,19 @@ public class PaymentPage extends javax.swing.JFrame {
                 ExtiButtonMouseClicked(evt);
             }
         });
+        ExtiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExtiButtonActionPerformed(evt);
+            }
+        });
 
         MemberIDField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        NameField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        AmountText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        AmountText.setForeground(new java.awt.Color(255, 255, 255));
+        AmountText.setText("Amount: ");
 
-        PHFIeld.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        EmailField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        AmountField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        AmountTextField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,41 +96,24 @@ public class PaymentPage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(PaymentText))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(EmailText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(MemberIDText)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MemberIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(DateText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Datefield, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(PhoneNumberText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PHFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(AmountText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(SubmitButton)
-                                .addGap(66, 66, 66)
+                                .addComponent(PayButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ExtiButton))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(NameText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(PaymentText)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                                .addComponent(AmountText)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,31 +124,15 @@ public class PaymentPage extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MemberIDText)
                     .addComponent(MemberIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(DateText)
-                    .addComponent(Datefield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NameText)
-                    .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PhoneNumberText)
-                    .addComponent(PHFIeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EmailText)
-                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AmountText)
-                    .addComponent(AmountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
+                    .addComponent(AmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SubmitButton)
+                    .addComponent(PayButton)
                     .addComponent(ExtiButton))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,6 +153,33 @@ public class PaymentPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_ExtiButtonMouseClicked
+
+    private void PayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PayButtonActionPerformed
+        // TODO add your handling code here:
+        
+           int id = Integer.parseInt(MemberIDField.getText());
+           int amount = Integer.parseInt(AmountTextField.getText());
+        try {
+            completePayment(id, amount);
+            
+            boolean success = true; 
+        if(success){
+        JOptionPane.showMessageDialog(null, "Payment done successfully for member_id "+ id );
+        }else{
+        JOptionPane.showMessageDialog(null, "Payment for id "+ id +"was not done ");
+        }    
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberAttendace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        MemberIDField.setText("");
+        AmountTextField.setText("");
+        
+     
+    }//GEN-LAST:event_PayButtonActionPerformed
+
+    private void ExtiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtiButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExtiButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,21 +217,13 @@ public class PaymentPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField AmountField;
     private javax.swing.JLabel AmountText;
-    private javax.swing.JLabel DateText;
-    private com.toedter.calendar.JDateChooser Datefield;
-    private javax.swing.JTextField EmailField;
-    private javax.swing.JLabel EmailText;
+    private javax.swing.JTextField AmountTextField;
     private javax.swing.JButton ExtiButton;
     private javax.swing.JTextField MemberIDField;
     private javax.swing.JLabel MemberIDText;
-    private javax.swing.JTextField NameField;
-    private javax.swing.JLabel NameText;
-    private javax.swing.JTextField PHFIeld;
+    private javax.swing.JButton PayButton;
     private javax.swing.JLabel PaymentText;
-    private javax.swing.JLabel PhoneNumberText;
-    private javax.swing.JButton SubmitButton;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

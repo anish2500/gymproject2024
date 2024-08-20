@@ -175,6 +175,9 @@
           <Color blue="82" green="65" red="4" type="rgb"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="setLocation(500,150);"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">

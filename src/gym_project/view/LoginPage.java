@@ -135,6 +135,7 @@ public class LoginPage extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(328, 402));
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(500,150);
 
         CardioText.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         CardioText.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,10 +281,12 @@ public class LoginPage extends javax.swing.JFrame {
                 this.dispose();
                 Dashboard ss = new Dashboard();
                 ss.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Admin Logged in Successfully");
             }
+            
             else{
-                System.out.println("Try again");
-                JOptionPane.showMessageDialog(null, "Incorrect");
+                
+                JOptionPane.showMessageDialog(null, "Incorrect credentials entered ");
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);

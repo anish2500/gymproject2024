@@ -4,6 +4,18 @@
  */
 package gym_project.view;
 
+import database.DB;
+import gym_project.controller.trainerDao;
+import gym_project.model.Trainer;
+import gym_project.model.Admin;
+import gym_project.model.Trainer;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author user
@@ -15,6 +27,7 @@ public class TrainerAdd extends javax.swing.JFrame {
      */
     public TrainerAdd() {
         initComponents();
+      
     }
 
     /**
@@ -38,7 +51,6 @@ public class TrainerAdd extends javax.swing.JFrame {
         GenderTextField = new javax.swing.JLabel();
         PhoneNoText = new javax.swing.JLabel();
         EmailText = new javax.swing.JLabel();
-        TrainerIDText = new javax.swing.JLabel();
         DurationText = new javax.swing.JLabel();
         GymTimeText = new javax.swing.JLabel();
         CategoryText = new javax.swing.JLabel();
@@ -50,7 +62,6 @@ public class TrainerAdd extends javax.swing.JFrame {
         AddressField = new javax.swing.JTextField();
         PhoneField = new javax.swing.JTextField();
         EmailField = new javax.swing.JTextField();
-        TrainerIDField = new javax.swing.JTextField();
         MaleRadioButton = new javax.swing.JRadioButton();
         FemaleRadioButton = new javax.swing.JRadioButton();
         GymTimeComboBox = new javax.swing.JComboBox<>();
@@ -60,12 +71,13 @@ public class TrainerAdd extends javax.swing.JFrame {
         CardioText = new javax.swing.JLabel();
         HomeofFintessText = new javax.swing.JLabel();
         ExitButton = new javax.swing.JButton();
-        RegisterButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
         image2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(300,80);
 
         jPanel5.setBackground(new java.awt.Color(4, 101, 130));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
@@ -107,10 +119,6 @@ public class TrainerAdd extends javax.swing.JFrame {
         EmailText.setForeground(new java.awt.Color(255, 255, 255));
         EmailText.setText("Email:");
 
-        TrainerIDText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        TrainerIDText.setForeground(new java.awt.Color(255, 255, 255));
-        TrainerIDText.setText("Trainer ID:");
-
         DurationText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         DurationText.setForeground(new java.awt.Color(255, 255, 255));
         DurationText.setText("Duration:");
@@ -127,6 +135,16 @@ public class TrainerAdd extends javax.swing.JFrame {
         RegisterButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         RegisterButton.setForeground(new java.awt.Color(255, 255, 255));
         RegisterButton.setText("Register");
+        RegisterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegisterButtonMouseClicked(evt);
+            }
+        });
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterButtonActionPerformed(evt);
+            }
+        });
 
         RegisterButton1.setBackground(new java.awt.Color(57, 20, 162));
         RegisterButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -150,17 +168,15 @@ public class TrainerAdd extends javax.swing.JFrame {
 
         EmailField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        TrainerIDField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        TrainerIDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TrainerIDFieldActionPerformed(evt);
-            }
-        });
-
         buttonGroup1.add(MaleRadioButton);
         MaleRadioButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         MaleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         MaleRadioButton.setText("Male");
+        MaleRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MaleRadioButtonActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(FemaleRadioButton);
         FemaleRadioButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -231,10 +247,8 @@ public class TrainerAdd extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(JCalender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CategoryText, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TrainerIDText, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LastNameField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EmailField)
-                            .addComponent(TrainerIDField)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 135, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -277,28 +291,21 @@ public class TrainerAdd extends javax.swing.JFrame {
                     .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TrainerIDText)
-                    .addComponent(DurationText))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TrainerIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DurationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GymTimeText)
+                    .addComponent(DurationText)
                     .addComponent(CategoryText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(RegisterButton1)
-                            .addComponent(RegisterButton))
-                        .addGap(32, 32, 32))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DurationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
+                .addComponent(GymTimeText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RegisterButton1)
+                    .addComponent(RegisterButton))
+                .addGap(32, 32, 32))
         );
 
         CardioText.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -319,18 +326,18 @@ public class TrainerAdd extends javax.swing.JFrame {
             }
         });
 
-        RegisterButton3.setBackground(new java.awt.Color(57, 20, 162));
-        RegisterButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        RegisterButton3.setForeground(new java.awt.Color(255, 255, 255));
-        RegisterButton3.setText("Back");
-        RegisterButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        backButton.setBackground(new java.awt.Color(57, 20, 162));
+        backButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        backButton.setForeground(new java.awt.Color(255, 255, 255));
+        backButton.setText("Back");
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RegisterButton3MouseClicked(evt);
+                backButtonMouseClicked(evt);
             }
         });
-        RegisterButton3.addActionListener(new java.awt.event.ActionListener() {
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterButton3ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -354,7 +361,7 @@ public class TrainerAdd extends javax.swing.JFrame {
                                 .addGap(95, 95, 95)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ExitButton)
-                                    .addComponent(RegisterButton3))))
+                                    .addComponent(backButton))))
                         .addGap(0, 39, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -374,7 +381,7 @@ public class TrainerAdd extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ExitButton)
                 .addGap(18, 18, 18)
-                .addComponent(RegisterButton3)
+                .addComponent(backButton)
                 .addGap(40, 40, 40))
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -395,27 +402,140 @@ public class TrainerAdd extends javax.swing.JFrame {
 
     private void RegisterButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButton1ActionPerformed
         // TODO add your handling code here:
+        FirstNameField.setText("");
+        LastNameField.setText("");
+        AgeField.setText("");
+        JCalender.setDate(null);
+        AddressField.setText("");
+        GenderTextField.setText("");
+        PhoneField.setText("");
+        EmailField.setText("");
+        DurationComboBox.setSelectedItem(null);
+        //TrainerIDField.setText("");
+        GymTimeComboBox.setSelectedItem(null);
+        jComboBox1.setSelectedItem(null);
+        
+        
     }//GEN-LAST:event_RegisterButton1ActionPerformed
 
-    private void TrainerIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainerIDFieldActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TrainerIDFieldActionPerformed
-
-    private void RegisterButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RegisterButton3ActionPerformed
+        this.dispose();
+        Dashboard ss = new Dashboard();
+        ss.setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitButtonMouseClicked
         // TODO add your handling code here:
-        this.dispose();
+        JFrame frame = new JFrame("Exit");
+        if (JOptionPane.showConfirmDialog(frame, "Confirm if you want to exit", "MySQL Connector",
+                JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION){
+            
+        }
+            System.exit(0);
         
     }//GEN-LAST:event_ExitButtonMouseClicked
 
-    private void RegisterButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButton3MouseClicked
+    private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
-        this.dispose();
         
-    }//GEN-LAST:event_RegisterButton3MouseClicked
+        
+    }//GEN-LAST:event_backButtonMouseClicked
+
+    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+        // TODO add your handling code here:
+       
+        
+
+            
+        
+       // PreparedStatement ps = conn.preparedStatement("insert into trainer(first_name, last_name, age,date_of_birth,address, gender,phone_number,email,duration, trainer_id, gym_time,category) values(?,?,?,?,?,?,?,?,?,?,?,? )");
+//        String first_name  = FirstNameField.getText();
+//         last_name = LastNameField.getText();
+//        String age  = AgeField.getText();
+//        Date date_of_birth = JCalender.getDate();
+//        String address = AddressField.getText();
+//        if(GenderTextField.isSelected()){
+//            
+//        }
+//        
+        
+        
+    }//GEN-LAST:event_RegisterButtonActionPerformed
+
+    private void MaleRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MaleRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MaleRadioButtonActionPerformed
+
+    private void RegisterButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonMouseClicked
+        // TODO add your handling code here:
+        //JOptionPane.showMessageDialog(null, "This is an information message box", "Information", JOptionPane.INFORMATION_MESSAGE);
+            String regex = "\\d{10}";
+        if(FirstNameField.getText().equals("")
+            || LastNameField.getText().equals("") 
+            || AgeField.getText().equals("")
+            || JCalender.getDate()==null
+            ||  AddressField.getText().equals("")
+            || PhoneField.getText().equals("")
+            || EmailField.getText().equals("")
+            
+            || DurationComboBox.getSelectedItem()==null
+            || GymTimeComboBox.getSelectedItem() == null
+            || jComboBox1.getSelectedItem() == null   ){
+                JOptionPane.showMessageDialog(null, "Unfilled Credentials");
+
+        }else if(!(PhoneField.getText().matches(regex))){
+            JOptionPane.showMessageDialog(rootPane, "Invalid Contact. Enter contact number with 10 digits and no characters ");
+        }else if(!(EmailField.getText().endsWith(".com")) || !(EmailField.getText().contains("@"))) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Email Format");
+        }else{
+        String first_name = FirstNameField.getText();
+        String last_name = LastNameField.getText();
+        int age =  Integer.parseInt(AgeField.getText());
+        Date date_of_birth  = JCalender.getDate();
+        String address = AddressField.getText();
+        String gender ;
+        if(MaleRadioButton.isSelected()){
+            gender = "Male";
+        }else if(FemaleRadioButton.isSelected()){
+            gender = "Female";
+        }else{
+            gender = "None";
+        }
+        String phone_number = PhoneField.getText();
+        String email = EmailField.getText();
+        String duration = (String) DurationComboBox.getSelectedItem();
+        //int trainer_id =  Integer.parseInt(TrainerIDField.getText());
+        String gym_time = (String) GymTimeComboBox.getSelectedItem();
+        String category = (String)jComboBox1.getSelectedItem();
+        Trainer  trainerInput= new Trainer(first_name, last_name,age,date_of_birth,address ,gender , phone_number,  email,duration , gym_time, category);
+        
+        try {
+            trainerDao.addTrainers(trainerInput);
+            JOptionPane.showMessageDialog(rootPane, "New Trainer is added successfully. ");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TrainerAdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         FirstNameField.setText("");
+        LastNameField.setText("");
+        AgeField.setText("");
+        JCalender.setDate(null);
+        AddressField.setText("");
+        GenderTextField.setText("");
+        PhoneField.setText("");
+        EmailField.setText("");
+        DurationComboBox.setSelectedItem(null);
+       // TrainerIDField.setText("");
+        GymTimeComboBox.setSelectedItem(null);
+        jComboBox1.setSelectedItem(null);
+        
+        
+        }
+        
+        
+     
+    }//GEN-LAST:event_RegisterButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -480,10 +600,8 @@ public class TrainerAdd extends javax.swing.JFrame {
     private javax.swing.JLabel PhoneNoText;
     private javax.swing.JButton RegisterButton;
     private javax.swing.JButton RegisterButton1;
-    private javax.swing.JButton RegisterButton3;
-    private javax.swing.JTextField TrainerIDField;
-    private javax.swing.JLabel TrainerIDText;
     private javax.swing.JLabel TrainerRegText;
+    private javax.swing.JButton backButton;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel image2;
     private javax.swing.JComboBox<String> jComboBox1;

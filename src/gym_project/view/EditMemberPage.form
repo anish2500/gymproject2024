@@ -43,6 +43,9 @@
           <Color blue="82" green="65" red="4" type="rgb"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="setLocation(300,100);"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -129,10 +132,10 @@
                                           <Component id="PhoneNoField" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
                                           <Component id="FirstNameText" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="FirstNameField" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
-                                          <Component id="EmailField1" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+                                          <Component id="PaymentField" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
                                           <Component id="AgeField" min="-2" pref="135" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="DOBText" min="-2" max="-2" attributes="0"/>
                                           <Component id="LastNameField" min="-2" pref="135" max="-2" attributes="0"/>
@@ -147,8 +150,6 @@
                                           </Group>
                                           <Component id="EmailText" min="-2" max="-2" attributes="0"/>
                                           <Component id="EmailField" min="-2" pref="135" max="-2" attributes="0"/>
-                                          <Component id="TrainerCategoryText" min="-2" max="-2" attributes="0"/>
-                                          <Component id="TrainerCategoryComboBox" min="-2" pref="135" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="AddressField" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
@@ -157,10 +158,23 @@
                                           <Component id="UpdateButton" min="-2" max="-2" attributes="0"/>
                                           <Component id="GymTimeComboBox" min="-2" pref="135" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                      <Component id="DeleteButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                      <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                              <Component id="DeleteButton" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                              <Component id="ResetButton" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="TrainerCategoryText" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="TrainerCategoryComboBox" min="-2" pref="135" max="-2" attributes="0"/>
+                                                  <Component id="MembershipDurationCBox" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+                                                  <Component id="MemberhsipDurationComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -172,7 +186,7 @@
                               <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                               <Component id="MemberIDText" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="MemberIDTextField" min="-2" pref="98" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="SearchButton" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -189,7 +203,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="MemberIDText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="MemberIDTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="SearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -212,7 +226,7 @@
                           <Component id="DatechooserText" min="-2" max="-2" attributes="0"/>
                           <Component id="AgeField" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="AddressText" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="FirstNameText5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -222,29 +236,38 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="AddressField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="PhoneNoText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="EmailText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="PhoneNoText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="EmailText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="PhoneNoField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="EmailField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="PaymentText" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="PaymentField" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="MemberhsipDurationComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="MembershipDurationCBox" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="PhoneNoField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="EmailField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="PaymentText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="GymTimeText" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TrainerCategoryText" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="EmailField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="GymTimeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="TrainerCategoryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="GymTimeText" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="GymTimeComboBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="UpdateButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -279,7 +302,7 @@
                 <Property name="text" type="java.lang.String" value="Member ID:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="MemberIDTextField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="0"/>
@@ -299,6 +322,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SearchButtonMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="FirstNameText">
               <Properties>
@@ -431,7 +457,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="EmailField">
             </Component>
-            <Component class="javax.swing.JTextField" name="EmailField1">
+            <Component class="javax.swing.JTextField" name="PaymentField">
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="DatechooserText">
             </Component>
@@ -521,6 +547,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Update "/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="UpdateButtonMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="DeleteButton">
               <Properties>
@@ -535,6 +564,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DeleteButtonMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ResetButton">
               <Properties>
@@ -554,6 +586,37 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="AgeField">
+            </Component>
+            <Component class="javax.swing.JLabel" name="MemberhsipDurationComboBox">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Membership Duration:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="MembershipDurationCBox">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Monthly"/>
+                    <StringItem index="1" value="Annual"/>
+                    <StringItem index="2" value="6 Month"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MembershipDurationCBoxActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

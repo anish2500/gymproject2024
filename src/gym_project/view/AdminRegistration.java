@@ -83,6 +83,7 @@ public class AdminRegistration extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(320,100);
 
         CardioText.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         CardioText.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,6 +131,7 @@ public class AdminRegistration extends javax.swing.JFrame {
         femaleButton.setForeground(new java.awt.Color(255, 255, 255));
         femaleButton.setText("Female");
 
+        AddressText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         AddressText.setForeground(new java.awt.Color(255, 255, 255));
         AddressText.setText("Address:");
 
@@ -165,6 +167,11 @@ public class AdminRegistration extends javax.swing.JFrame {
         RegisterButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RegisterButtonMouseClicked(evt);
+            }
+        });
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterButtonActionPerformed(evt);
             }
         });
 
@@ -328,7 +335,30 @@ public class AdminRegistration extends javax.swing.JFrame {
 
     private void RegisterButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonMouseClicked
         // TODO add your handling code here:
-        System.out.println("The button is clicked!");
+      
+        
+        String regex = "\\d{10}";
+          if (FirstNameField.getText().equals("")
+             ||LastNameField.getText().equals("")
+             ||AgeField.getText().equals("")
+             ||ContactField.getText().equals("")
+             ||jDateChooser1.getDate()==null
+             ||AddressField.getText().equals("")
+             ||usernameField.getText().equals("")
+             ||PasswordField.getText().equals("")
+             ||ConfirmPassField.getText().equals("")
+                  ){
+        JOptionPane.showMessageDialog(rootPane, "Insufficient credentials given");
+        
+        
+    }else if(!ContactField.getText().matches(regex)){
+        JOptionPane.showMessageDialog(rootPane, "Invalid Contact. Enter contact number with 10 digits and no characters ");
+    }else if(!PasswordField.getText().equals(ConfirmPassField.getText())){
+        JOptionPane.showMessageDialog(rootPane, "Password and ConfirmPassword doesn't match.");
+    }
+          
+    else{
+         System.out.println("The button is clicked!");
         String first_name = FirstNameField.getText();
         String last_name= LastNameField.getText();
         int age = Integer.parseInt(AgeField.getText());
@@ -345,28 +375,40 @@ public class AdminRegistration extends javax.swing.JFrame {
         String address = AddressField.getText();
         String username = usernameField.getText();
         String password = PasswordField.getText();
-        String confirm_password = ConfirmPassField.getText();
+//        String confirm_password = ConfirmPassField.getText();
         
-          if (first_name .equals("")){
-        JOptionPane.showMessageDialog(rootPane, "The first name field is empty");
         
-    }else if (last_name .equals("")){
-        JOptionPane.showMessageDialog(rootPane, "The last name field  is empty");
-    
-    }
         
         Admin adminInput = new Admin(first_name, last_name,age,gender, contact_number,date_of_birth, address,  username,password);
         
+        FirstNameField.setText("");
+        LastNameField.setText("");
+        AgeField.setText("");
+        ContactField.setText("");
+        jDateChooser1.setDate(null);
+        AddressField.setText("");
+        usernameField.setText("");
+        PasswordField.setText("");
+        ConfirmPassField.setText("");
+        System.out.println("You have been successfully registered");
+       
+       
+                  
         try {
             AdminDao.addAdmin(adminInput);
+            //System.out.println("You have been successfully registered");
+            this.dispose();
+            LoginPage ss = new LoginPage();
+            ss.setVisible(true);
+            
         } catch (SQLException ex) {
             Logger.getLogger(AdminRegistration.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+               
         
         
 
-        
+    }  
         
     }//GEN-LAST:event_RegisterButtonMouseClicked
 
@@ -378,6 +420,10 @@ public class AdminRegistration extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_ExitButtonMouseClicked
+
+    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterButtonActionPerformed
 
     /**
      * @param args the command line arguments

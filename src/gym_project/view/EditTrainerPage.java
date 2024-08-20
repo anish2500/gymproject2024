@@ -4,6 +4,25 @@
  */
 package gym_project.view;
 
+import database.DB;
+import gym_project.controller.memberDao;
+import static gym_project.controller.memberDao.Delete_Member;
+import gym_project.controller.trainerDao;
+//import static gym_project.controller.trainerDao.Delete_Trainer;
+import gym_project.model.Member;
+import gym_project.model.Trainer;
+import gym_project.view.EditMemberPage;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
+
 /**
  *
  * @author user
@@ -53,7 +72,6 @@ public class EditTrainerPage extends javax.swing.JFrame {
         GymTimeText = new javax.swing.JLabel();
         GymTimeComboBox = new javax.swing.JComboBox<>();
         UpdateButton = new javax.swing.JButton();
-        DeleteButton = new javax.swing.JButton();
         ResetButton = new javax.swing.JButton();
         CardioCentralText = new javax.swing.JLabel();
         HomeOfFitnessText = new javax.swing.JLabel();
@@ -68,6 +86,7 @@ public class EditTrainerPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(300,100);
 
         jPanel2.setBackground(new java.awt.Color(4, 101, 130));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
@@ -104,12 +123,10 @@ public class EditTrainerPage extends javax.swing.JFrame {
 
         buttonGroup1.add(MaleRadioButton);
         MaleRadioButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        MaleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         MaleRadioButton.setText("Male");
 
         buttonGroup1.add(FemaleRadioButton);
         FemaleRadioButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        FemaleRadioButton.setForeground(new java.awt.Color(255, 255, 255));
         FemaleRadioButton.setText("Female");
 
         PhoneNoText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -122,7 +139,7 @@ public class EditTrainerPage extends javax.swing.JFrame {
 
         DurationText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         DurationText.setForeground(new java.awt.Color(255, 255, 255));
-        DurationText.setText("Duration:");
+        DurationText.setText("Duration(Months):");
 
         DurationComboBox.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         DurationComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "6 Months" }));
@@ -145,16 +162,21 @@ public class EditTrainerPage extends javax.swing.JFrame {
         UpdateButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         UpdateButton.setForeground(new java.awt.Color(255, 255, 255));
         UpdateButton.setText("Update");
-
-        DeleteButton.setBackground(new java.awt.Color(57, 20, 162));
-        DeleteButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        DeleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        DeleteButton.setText("Delete");
+        UpdateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UpdateButtonMouseClicked(evt);
+            }
+        });
 
         ResetButton.setBackground(new java.awt.Color(57, 20, 162));
         ResetButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         ResetButton.setForeground(new java.awt.Color(255, 255, 255));
         ResetButton.setText("Reset");
+        ResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ResetButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -164,10 +186,9 @@ public class EditTrainerPage extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
                         .addComponent(UpdateButton)
-                        .addGap(80, 80, 80)
-                        .addComponent(DeleteButton)
-                        .addGap(78, 78, 78)
+                        .addGap(60, 60, 60)
                         .addComponent(ResetButton))
                     .addComponent(GymTimeText)
                     .addComponent(AddressField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +206,7 @@ public class EditTrainerPage extends javax.swing.JFrame {
                                     .addComponent(PhoneNoText, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(PhoneNoField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                                 .addComponent(DurationText)))
-                        .addGap(91, 91, 91)
+                        .addGap(73, 73, 73)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(CategoryText)
                             .addComponent(EmailText)
@@ -254,7 +275,6 @@ public class EditTrainerPage extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ResetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -281,6 +301,16 @@ public class EditTrainerPage extends javax.swing.JFrame {
         SearchButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SearchButton.setForeground(new java.awt.Color(255, 255, 255));
         SearchButton.setText("Search");
+        SearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchButtonMouseClicked(evt);
+            }
+        });
+        SearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchButtonActionPerformed(evt);
+            }
+        });
 
         BackButton.setBackground(new java.awt.Color(57, 20, 162));
         BackButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -304,6 +334,11 @@ public class EditTrainerPage extends javax.swing.JFrame {
         ExitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitButtonMouseClicked(evt);
+            }
+        });
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
             }
         });
 
@@ -398,14 +433,153 @@ public class EditTrainerPage extends javax.swing.JFrame {
     private void BackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackButtonMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        TrainerAdd ss = new TrainerAdd();
-        ss.setVisible(true);
+       Dashboard ss = new Dashboard();
+       ss.setVisible(true);
     }//GEN-LAST:event_BackButtonMouseClicked
 
     private void ExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitButtonMouseClicked
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_ExitButtonMouseClicked
+
+    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
+        // TODO add your handling code here:
+        int checkId = 0;
+        String trainer_id = TrainerIDField.getText();
+
+        try {
+            Connection con = DB.connect();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from trainer where trainer_id=" + trainer_id );
+            while (rs.next()) {
+                FirstNameField.setText(rs.getString("first_name"));
+                LastNameField.setText(rs.getString("last_name"));
+                AgeField.setText(String.valueOf(rs.getInt("age")));
+                DatechooserText.setDate(rs.getDate("Date_of_birth"));
+                AddressField.setText(rs.getString("address"));
+                if (rs.getString("gender").equals("Male")) {
+                    MaleRadioButton.setSelected(true);
+                    FemaleRadioButton.setSelected(false);
+                } else {
+                    MaleRadioButton.setSelected(false);
+                    FemaleRadioButton.setSelected(true);
+                }
+                PhoneNoField.setText(rs.getString("phone_number"));
+                EmailField.setText(rs.getString("email"));
+                //PaymentField.setText(rs.getString("payment"));
+                CategoryComboBox.setSelectedItem(rs.getString("category"));
+                GymTimeComboBox.setSelectedItem(rs.getString("gym_time"));
+                
+                
+            }
+        } catch (SQLException e) {
+             Logger.getLogger(EditTrainerPage.class.getName()).log(Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(null, "connection error");
+
+
+       }
+    
+
+        
+    }//GEN-LAST:event_SearchButtonActionPerformed
+
+    private void UpdateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateButtonMouseClicked
+        // TODO add your handling code here:
+        
+        String regex = "\\d{10}";
+
+// Check for unfilled fields
+if (FirstNameField.getText().equals("")
+    || LastNameField.getText().equals("") 
+    || AgeField.getText().equals("")
+    || DatechooserText.getDate() == null
+    || AddressField.getText().equals("")
+    || PhoneNoField.getText().equals("")
+    || EmailField.getText().equals("")
+    || DurationComboBox.getSelectedItem() == null
+    || GymTimeComboBox.getSelectedItem() == null
+    || CategoryComboBox.getSelectedItem() == null) {
+    
+    JOptionPane.showMessageDialog(null, "Unfilled Credentials");
+
+} else if (!(PhoneNoField.getText().matches(regex))) {
+    // Check for valid phone number
+    JOptionPane.showMessageDialog(rootPane, "Invalid Contact. Enter a contact number with 10 digits and no characters.");
+
+} else if (!(EmailField.getText().endsWith(".com")) || !(EmailField.getText().contains("@"))) {
+    // Check for valid email format
+    JOptionPane.showMessageDialog(rootPane, "Invalid Email Format");
+
+} else {
+    // Valid inputs, proceed to update the trainer
+    String first_name = FirstNameField.getText();
+    String last_name = LastNameField.getText();
+    int age = Integer.parseInt(AgeField.getText());
+    java.util.Date date_of_birth = DatechooserText.getDate();
+    String address = AddressField.getText();
+    String gender;
+
+    if (MaleRadioButton.isSelected()) {
+        gender = "Male";
+    } else if (FemaleRadioButton.isSelected()) {
+        gender = "Female";
+    } else {
+        gender = "none";
+    }
+
+    String duration = (String) DurationComboBox.getSelectedItem();
+    String phone_number = PhoneNoField.getText();
+    String email = EmailField.getText();
+    String gym_time = (String) GymTimeComboBox.getSelectedItem();
+    String category = (String) CategoryComboBox.getSelectedItem();
+    int trainer_id = Integer.parseInt(TrainerIDField.getText());
+
+    // Create a Trainer object with the updated values
+    Trainer trainers = new Trainer(first_name, last_name, age, date_of_birth, address, gender, phone_number, email, duration, gym_time, category);
+
+    try {
+        // Update the trainer information in the database, including the duration
+        trainerDao.updateTrainer_Page(trainers, trainer_id);
+        JOptionPane.showMessageDialog(rootPane, "Trainer updated successfully");
+
+        // Optionally, you can clear the fields after updating
+        FirstNameField.setText("");
+        LastNameField.setText("");
+        AgeField.setText("");
+        DatechooserText.setDate(null);
+        AddressField.setText("");
+        PhoneNoField.setText("");
+        EmailField.setText("");
+        DurationComboBox.setSelectedItem(null);
+        GymTimeComboBox.setSelectedItem(null);
+        CategoryComboBox.setSelectedItem(null);
+        TrainerIDField.setText("");
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(EditTrainerPage.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(rootPane, "Error occurred while updating the trainer.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+        
+
+    }//GEN-LAST:event_UpdateButtonMouseClicked
+
+    private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_SearchButtonMouseClicked
+
+    private void ResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetButtonMouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+        new EditTrainerPage().setVisible(true);
+    }//GEN-LAST:event_ResetButtonMouseClicked
+
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_ExitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,7 +627,6 @@ public class EditTrainerPage extends javax.swing.JFrame {
     private javax.swing.JLabel CategoryText;
     private javax.swing.JLabel DOBText;
     private com.toedter.calendar.JDateChooser DatechooserText;
-    private javax.swing.JButton DeleteButton;
     private javax.swing.JComboBox<String> DurationComboBox;
     private javax.swing.JLabel DurationText;
     private javax.swing.JTextField EmailField;

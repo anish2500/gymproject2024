@@ -6,24 +6,28 @@
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/database/DB.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/TrainerAdd.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/EditMemberPage.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/AdminRegistration.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/TrainerAttendance.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Member_Attendance.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/Membershipadd.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/TrainerAttendance.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/memberDao.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/trainer_attendanceDao.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Admin.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/Gym_Project.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/Dashboard.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Member.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/PaymentDao.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/trainerDao.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/MemberAttendace.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/EditTrainerPage.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Trainer.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/AdminDao.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/PaymentPage.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Payment.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/LoginPage.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Membership.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/controller/memberAttendanceDao.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/AdminRegistration.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Member_Attendance.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/TrainerAttendance.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/Gym_Project.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/Dashboard.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Member.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/view/EditTrainerPage.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/Gym_Project/src/gym_project/model/Payment.java</file>
         </group>
     </open-files>
 </project-private>

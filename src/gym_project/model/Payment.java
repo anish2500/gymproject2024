@@ -55,7 +55,4 @@ public class Payment {
         return member_id;
     }
     
-    
-    
-    
 }

@@ -4,6 +4,12 @@
  */
 package gym_project.view;
 
+import static gym_project.controller.memberAttendanceDao.takeAttendance;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
@@ -29,17 +35,14 @@ public class TrainerAttendance extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         TrainerAttendanceField = new javax.swing.JLabel();
         TrainerIdText = new javax.swing.JLabel();
-        SelectTimeText = new javax.swing.JLabel();
-        TakeAttendanceText = new javax.swing.JLabel();
         SubmitButton = new javax.swing.JButton();
-        CancelButton = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
         TrainerIDField = new javax.swing.JTextField();
-        SelectTimeComboBox = new javax.swing.JComboBox<>();
-        TakeAttendanceComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(550,200);
 
         TrainerAttendanceField.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         TrainerAttendanceField.setForeground(new java.awt.Color(255, 255, 255));
@@ -49,93 +52,71 @@ public class TrainerAttendance extends javax.swing.JFrame {
         TrainerIdText.setForeground(new java.awt.Color(255, 255, 255));
         TrainerIdText.setText("Trainer ID:");
 
-        SelectTimeText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        SelectTimeText.setForeground(new java.awt.Color(255, 255, 255));
-        SelectTimeText.setText("Select Time:");
-
-        TakeAttendanceText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        TakeAttendanceText.setForeground(new java.awt.Color(255, 255, 255));
-        TakeAttendanceText.setText("Take Attendance:");
-
         SubmitButton.setBackground(new java.awt.Color(57, 20, 162));
         SubmitButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SubmitButton.setForeground(new java.awt.Color(255, 255, 255));
         SubmitButton.setText("Submit");
+        SubmitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SubmitButtonMouseClicked(evt);
+            }
+        });
 
-        CancelButton.setBackground(new java.awt.Color(57, 20, 162));
-        CancelButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        CancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        CancelButton.setText("Cancel");
+        BackButton.setBackground(new java.awt.Color(57, 20, 162));
+        BackButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        BackButton.setForeground(new java.awt.Color(255, 255, 255));
+        BackButton.setText("Back");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
 
         TrainerIDField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        SelectTimeComboBox.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        SelectTimeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Morning", "Day", "Evening" }));
-
-        TakeAttendanceComboBox.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        TakeAttendanceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Yes", "No" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(87, 87, 87)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TrainerIdText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TrainerIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(SelectTimeText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SelectTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TakeAttendanceText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TakeAttendanceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TrainerAttendanceField)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
                             .addComponent(SubmitButton)
-                            .addGap(64, 64, 64)
-                            .addComponent(CancelButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(118, 118, 118)
-                            .addComponent(TrainerAttendanceField))))
-                .addContainerGap(147, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BackButton))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(TrainerIdText)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(TrainerIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(64, 64, 64)
                 .addComponent(TrainerAttendanceField)
-                .addGap(41, 41, 41)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TrainerIdText)
                     .addComponent(TrainerIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SelectTimeText)
-                    .addComponent(SelectTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TakeAttendanceText)
-                    .addComponent(TakeAttendanceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SubmitButton)
-                    .addComponent(CancelButton))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addComponent(BackButton))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,6 +125,35 @@ public class TrainerAttendance extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SubmitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitButtonMouseClicked
+        // TODO add your handling code here:
+        
+        int id = Integer.parseInt(TrainerIDField.getText());
+        try {
+            takeAttendance(id);
+            
+            boolean success = true; 
+        if(success){
+        JOptionPane.showMessageDialog(null, "Attendance added successfully for trainer id "+ id );
+        }else{
+        JOptionPane.showMessageDialog(null, "Attendnce for id "+ id +"was not added ");
+        }    
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberAttendace.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        TrainerIDField.setText("");
+    }//GEN-LAST:event_SubmitButtonMouseClicked
+
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        // TODO add your handling code here:
+       
+        this.dispose();
+        Dashboard ss = new Dashboard();
+        ss.setVisible(true);
+        
+        
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,12 +191,8 @@ public class TrainerAttendance extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CancelButton;
-    private javax.swing.JComboBox<String> SelectTimeComboBox;
-    private javax.swing.JLabel SelectTimeText;
+    private javax.swing.JButton BackButton;
     private javax.swing.JButton SubmitButton;
-    private javax.swing.JComboBox<String> TakeAttendanceComboBox;
-    private javax.swing.JLabel TakeAttendanceText;
     private javax.swing.JLabel TrainerAttendanceField;
     private javax.swing.JTextField TrainerIDField;
     private javax.swing.JLabel TrainerIdText;

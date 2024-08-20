@@ -76,6 +76,9 @@
           <Color blue="82" green="65" red="4" type="rgb"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="setLocation(300,80);"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -164,10 +167,10 @@
                                           <Component id="PaymentField" min="-2" pref="135" max="-2" attributes="0"/>
                                           <Component id="GymTimeComboBox" min="-2" pref="135" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="167" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="137" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="RegisterButton" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                                   </Group>
@@ -176,22 +179,22 @@
                                   <Component id="EmailText" min="-2" max="-2" attributes="0"/>
                                   <Component id="LastNameText" min="-2" max="-2" attributes="0"/>
                                   <Component id="DOBText" min="-2" max="-2" attributes="0"/>
-                                  <Component id="MemberText" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="DOBText1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="GenderFeild" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="MaleRadioButton" min="-2" pref="65" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="MemberhsipDurationComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="MemberIDField" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
                                   <Component id="ResetButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="MembershipDurationCBox" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
                                       <Component id="LastNameFIeld" alignment="0" pref="135" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="MemberhsipDurationComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TrainerCategory" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TrainerCategoryComboBox2" min="-2" pref="135" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
                           </Group>
@@ -238,7 +241,7 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="AddressText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="DOBText1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="GenderFeild" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MaleRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -257,22 +260,22 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="PaymentText" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="MemberText" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="MemberIDField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="PaymentField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="GymTimeText" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MemberhsipDurationComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="PaymentField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="MembershipDurationCBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="GymTimeText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TrainerCategory" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="GymTimeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TrainerCategoryComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -354,7 +357,7 @@
                 <Property name="text" type="java.lang.String" value="Address:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="DOBText1">
+            <Component class="javax.swing.JLabel" name="GenderFeild">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="0"/>
@@ -396,17 +399,6 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Payment(Monthly):"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="MemberText">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Member ID:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="GymTimeText">
@@ -562,16 +554,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmailFieldActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="MemberIDField">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MemberIDFieldActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JTextField" name="PaymentField">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -597,6 +579,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="RegisterButtonMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegisterButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ResetButton">
@@ -614,6 +597,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ResetButtonMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
@@ -622,6 +606,36 @@
                   <Font name="Arial" size="12" style="0"/>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="TrainerCategory">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Trainer Category: "/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="TrainerCategoryComboBox2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="12" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="2">
+                    <StringItem index="0" value="Personal"/>
+                    <StringItem index="1" value="Fitness Instructor"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TrainerCategoryComboBox2ActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -662,6 +676,7 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BackButtonMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BackButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ExitButton">

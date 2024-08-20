@@ -4,7 +4,16 @@
  */
 package gym_project.view;
 
+import gym_project.controller.AdminDao;
+import gym_project.controller.memberDao;
+import gym_project.model.Admin;
+import gym_project.model.Member;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 
 
@@ -44,11 +53,10 @@ public class Membershipadd extends javax.swing.JFrame {
         AgeText = new javax.swing.JLabel();
         DOBText = new javax.swing.JLabel();
         AddressText = new javax.swing.JLabel();
-        DOBText1 = new javax.swing.JLabel();
+        GenderFeild = new javax.swing.JLabel();
         PhoneNoText = new javax.swing.JLabel();
         EmailText = new javax.swing.JLabel();
         PaymentText = new javax.swing.JLabel();
-        MemberText = new javax.swing.JLabel();
         GymTimeText = new javax.swing.JLabel();
         MemberhsipDurationComboBox = new javax.swing.JLabel();
         MaleRadioButton = new javax.swing.JRadioButton();
@@ -61,11 +69,12 @@ public class Membershipadd extends javax.swing.JFrame {
         AddressField = new javax.swing.JTextField();
         PhoneNoField = new javax.swing.JTextField();
         EmailField = new javax.swing.JTextField();
-        MemberIDField = new javax.swing.JTextField();
         PaymentField = new javax.swing.JTextField();
         RegisterButton = new javax.swing.JButton();
         ResetButton = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        TrainerCategory = new javax.swing.JLabel();
+        TrainerCategoryComboBox2 = new javax.swing.JComboBox<>();
         CardioText = new javax.swing.JLabel();
         HomeOfFitnessText = new javax.swing.JLabel();
         BackButton = new javax.swing.JButton();
@@ -97,6 +106,7 @@ public class Membershipadd extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(300,80);
 
         jPanel2.setBackground(new java.awt.Color(4, 101, 130));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
@@ -126,9 +136,9 @@ public class Membershipadd extends javax.swing.JFrame {
         AddressText.setForeground(new java.awt.Color(255, 255, 255));
         AddressText.setText("Address:");
 
-        DOBText1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        DOBText1.setForeground(new java.awt.Color(255, 255, 255));
-        DOBText1.setText("Gender:");
+        GenderFeild.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        GenderFeild.setForeground(new java.awt.Color(255, 255, 255));
+        GenderFeild.setText("Gender:");
 
         PhoneNoText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         PhoneNoText.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,10 +151,6 @@ public class Membershipadd extends javax.swing.JFrame {
         PaymentText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         PaymentText.setForeground(new java.awt.Color(255, 255, 255));
         PaymentText.setText("Payment(Monthly):");
-
-        MemberText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        MemberText.setForeground(new java.awt.Color(255, 255, 255));
-        MemberText.setText("Member ID:");
 
         GymTimeText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         GymTimeText.setForeground(new java.awt.Color(255, 255, 255));
@@ -223,13 +229,6 @@ public class Membershipadd extends javax.swing.JFrame {
             }
         });
 
-        MemberIDField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        MemberIDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MemberIDFieldActionPerformed(evt);
-            }
-        });
-
         PaymentField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         PaymentField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +245,11 @@ public class Membershipadd extends javax.swing.JFrame {
                 RegisterButtonMouseClicked(evt);
             }
         });
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterButtonActionPerformed(evt);
+            }
+        });
 
         ResetButton.setBackground(new java.awt.Color(57, 20, 162));
         ResetButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -256,8 +260,25 @@ public class Membershipadd extends javax.swing.JFrame {
                 ResetButtonMouseClicked(evt);
             }
         });
+        ResetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetButtonActionPerformed(evt);
+            }
+        });
 
         jDateChooser1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        TrainerCategory.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        TrainerCategory.setForeground(new java.awt.Color(255, 255, 255));
+        TrainerCategory.setText("Trainer Category: ");
+
+        TrainerCategoryComboBox2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        TrainerCategoryComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Personal", "Fitness Instructor" }));
+        TrainerCategoryComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TrainerCategoryComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -283,29 +304,29 @@ public class Membershipadd extends javax.swing.JFrame {
                                     .addComponent(FirstNameFIeld2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(PaymentField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 137, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(RegisterButton)
                                 .addGap(97, 97, 97)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EmailText)
                             .addComponent(LastNameText)
                             .addComponent(DOBText)
-                            .addComponent(MemberText)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(DOBText1)
+                                .addComponent(GenderFeild)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(MaleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButton1))
-                            .addComponent(MemberhsipDurationComboBox)
-                            .addComponent(MemberIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ResetButton)
                             .addComponent(MembershipDurationCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(LastNameFIeld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)))
+                                .addComponent(LastNameFIeld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                            .addComponent(MemberhsipDurationComboBox)
+                            .addComponent(TrainerCategory)
+                            .addComponent(TrainerCategoryComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(131, 131, 131))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(PhoneNoField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,7 +362,7 @@ public class Membershipadd extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddressText)
-                    .addComponent(DOBText1)
+                    .addComponent(GenderFeild)
                     .addComponent(MaleRadioButton)
                     .addComponent(jRadioButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,19 +378,19 @@ public class Membershipadd extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(PaymentText)
-                    .addComponent(MemberText))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MemberIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PaymentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GymTimeText)
                     .addComponent(MemberhsipDurationComboBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MembershipDurationCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PaymentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MembershipDurationCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GymTimeText)
+                    .addComponent(TrainerCategory))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TrainerCategoryComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RegisterButton)
@@ -392,6 +413,11 @@ public class Membershipadd extends javax.swing.JFrame {
         BackButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BackButtonMouseClicked(evt);
+            }
+        });
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
             }
         });
 
@@ -495,16 +521,91 @@ public class Membershipadd extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailFieldActionPerformed
 
-    private void MemberIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MemberIDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MemberIDFieldActionPerformed
-
     private void PaymentFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PaymentFieldActionPerformed
 
     private void RegisterButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonMouseClicked
         // TODO add your handling code here:
+         String regex = "\\d{10}";
+        if(FirstNameFIeld2.getText().equals("")
+            || LastNameFIeld.getText().equals("") 
+            || AgeField.getText().equals("")
+            || jDateChooser1.getDate()==null
+            ||  AddressField.getText().equals("")
+            || PhoneNoField.getText().equals("")
+            || EmailField.getText().equals("")
+            || PaymentField.getText().equals("")
+            || MembershipDurationCBox.getSelectedItem()==null
+            || GymTimeComboBox.getSelectedItem() == null
+            || TrainerCategoryComboBox2.getSelectedItem() == null   ){
+                JOptionPane.showMessageDialog(null, "Unfilled Credentials");
+
+        }else if(!(PhoneNoField.getText().matches(regex))){
+            JOptionPane.showMessageDialog(rootPane, "Invalid Contact. Enter contact number with 10 digits and no characters ");
+        }else if(!(EmailField.getText().endsWith(".com")) || !(EmailField.getText().contains("@"))) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Email Format");
+        }
+         else{
+        
+        String first_name = FirstNameFIeld2.getText();
+        String last_name= LastNameFIeld.getText();
+        int age = Integer.parseInt(AgeField.getText());
+        Date date_of_birth  = jDateChooser1.getDate();
+        String address = AddressField.getText();
+        String gender;
+        if(MaleRadioButton.isSelected()){
+        gender = "Male";
+        }else if(jRadioButton1.isSelected()){
+        gender = "Female";
+        }else{
+            gender = "none";
+        }
+        String phone_number = PhoneNoField.getText();
+        String email = EmailField.getText();
+        int payment = Integer.parseInt(PaymentField.getText());
+        int membership_duration = 0;
+        if(MembershipDurationCBox.getSelectedItem().equals("Monthly")){
+            membership_duration = 1;
+        }else if(MembershipDurationCBox.getSelectedItem().equals("Annual")){
+            membership_duration = 12;
+        }else if(MembershipDurationCBox.getSelectedItem().equals("Six Months")){
+            membership_duration = 6;}
+        String gym_time = (String) GymTimeComboBox.getSelectedItem();
+        String trainer = (String) TrainerCategoryComboBox2.getSelectedItem();
+
+         Member  memberInput = new Member(first_name, last_name, age,  address ,  phone_number,  email,  payment, 
+                  gym_time, membership_duration,  date_of_birth,  trainer, gender);
+         
+         FirstNameFIeld2.setText("");
+         LastNameFIeld.getText();
+          AgeField.setText("");
+        jDateChooser1.setDate(null);
+        AddressField.setText("");
+        MaleRadioButton.setSelected(false);
+        jRadioButton1.setSelected(false);
+        PhoneNoField.setText("");
+        EmailField.setText("");
+        PaymentField.setText("");
+        TrainerCategoryComboBox2.setSelectedItem(null);
+        GymTimeComboBox.setSelectedItem(null);
+        MembershipDurationCBox.setSelectedItem(null);
+        //System.out.println("Member registerd successfully.");
+        JOptionPane.showMessageDialog(null,"Member Registered Sucessfully. ");
+        
+         
+        try {
+            memberDao.addMember(memberInput);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+
+                        
+        }
+        
     }//GEN-LAST:event_RegisterButtonMouseClicked
 
     private void ResetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetButtonMouseClicked
@@ -523,6 +624,39 @@ public class Membershipadd extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_ExitButtonMouseClicked
+
+    private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
+        // TODO add your handling code here:
+        FirstNameFIeld2.setText("");
+        LastNameFIeld.setText("");
+        AgeField.setText("");
+        jDateChooser1.setDate(null);
+        AddressField.setText("");
+        MaleRadioButton.setSelected(false);
+        jRadioButton1.setSelected(false);
+        PhoneNoField.setText("");
+        EmailField.setText("");
+        PaymentField.setText("");
+        TrainerCategoryComboBox2.setSelectedItem(null);
+        GymTimeComboBox.setSelectedItem(null);
+        MembershipDurationCBox.setSelectedItem(null);
+        
+    }//GEN-LAST:event_ResetButtonActionPerformed
+
+    private void TrainerCategoryComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TrainerCategoryComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TrainerCategoryComboBox2ActionPerformed
+
+    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RegisterButtonActionPerformed
+
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Dashboard ss = new Dashboard();
+        ss.setVisible(true);
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,12 +701,12 @@ public class Membershipadd extends javax.swing.JFrame {
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel CardioText;
     private javax.swing.JLabel DOBText;
-    private javax.swing.JLabel DOBText1;
     private javax.swing.JTextField EmailField;
     private javax.swing.JLabel EmailText;
     private javax.swing.JButton ExitButton;
     private javax.swing.JTextField FirstNameFIeld2;
     private javax.swing.JLabel FirstNameText;
+    private javax.swing.JLabel GenderFeild;
     private javax.swing.JComboBox<String> GymTimeComboBox;
     private javax.swing.JLabel GymTimeText;
     private javax.swing.JLabel HomeOfFitnessText;
@@ -580,8 +714,6 @@ public class Membershipadd extends javax.swing.JFrame {
     private javax.swing.JTextField LastNameFIeld;
     private javax.swing.JLabel LastNameText;
     private javax.swing.JRadioButton MaleRadioButton;
-    private javax.swing.JTextField MemberIDField;
-    private javax.swing.JLabel MemberText;
     private javax.swing.JLabel MemberhsipDurationComboBox;
     private javax.swing.JComboBox<String> MembershipDurationCBox;
     private javax.swing.JLabel MembershipText;
@@ -591,6 +723,8 @@ public class Membershipadd extends javax.swing.JFrame {
     private javax.swing.JLabel PhoneNoText;
     private javax.swing.JButton RegisterButton;
     private javax.swing.JButton ResetButton;
+    private javax.swing.JLabel TrainerCategory;
+    private javax.swing.JComboBox<String> TrainerCategoryComboBox2;
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JFrame jFrame1;

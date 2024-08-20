@@ -1,12 +1,19 @@
 package gym_project.view;
+
+import database.DB;
+import gym_project.controller.memberDao;
+import static gym_project.controller.memberDao.Delete_Member;
+import gym_project.model.Member;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author user
@@ -34,7 +41,7 @@ public class EditMemberPage extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         MembershipText = new javax.swing.JLabel();
         MemberIDText = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        MemberIDTextField = new javax.swing.JTextField();
         SearchButton = new javax.swing.JButton();
         FirstNameText = new javax.swing.JLabel();
         LastNameText = new javax.swing.JLabel();
@@ -52,7 +59,7 @@ public class EditMemberPage extends javax.swing.JFrame {
         AddressField = new javax.swing.JTextField();
         PhoneNoField = new javax.swing.JTextField();
         EmailField = new javax.swing.JTextField();
-        EmailField1 = new javax.swing.JTextField();
+        PaymentField = new javax.swing.JTextField();
         DatechooserText = new com.toedter.calendar.JDateChooser();
         MaleRadioButton = new javax.swing.JRadioButton();
         FemaleRadioButton = new javax.swing.JRadioButton();
@@ -62,6 +69,8 @@ public class EditMemberPage extends javax.swing.JFrame {
         DeleteButton = new javax.swing.JButton();
         ResetButton = new javax.swing.JButton();
         AgeField = new javax.swing.JTextField();
+        MemberhsipDurationComboBox = new javax.swing.JLabel();
+        MembershipDurationCBox = new javax.swing.JComboBox<>();
         CardioCentralText = new javax.swing.JLabel();
         HomeOfFitnessText = new javax.swing.JLabel();
         BackButton = new javax.swing.JButton();
@@ -71,6 +80,7 @@ public class EditMemberPage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(4, 101, 130));
+        setLocation(300,100);
 
         jPanel2.setBackground(new java.awt.Color(4, 101, 130));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
@@ -83,12 +93,17 @@ public class EditMemberPage extends javax.swing.JFrame {
         MemberIDText.setForeground(new java.awt.Color(255, 255, 255));
         MemberIDText.setText("Member ID:");
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        MemberIDTextField.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         SearchButton.setBackground(new java.awt.Color(57, 20, 162));
         SearchButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SearchButton.setForeground(new java.awt.Color(255, 255, 255));
         SearchButton.setText("Search");
+        SearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchButtonMouseClicked(evt);
+            }
+        });
 
         FirstNameText.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         FirstNameText.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,11 +189,21 @@ public class EditMemberPage extends javax.swing.JFrame {
         UpdateButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         UpdateButton.setForeground(new java.awt.Color(255, 255, 255));
         UpdateButton.setText("Update ");
+        UpdateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UpdateButtonMouseClicked(evt);
+            }
+        });
 
         DeleteButton.setBackground(new java.awt.Color(57, 20, 162));
         DeleteButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         DeleteButton.setForeground(new java.awt.Color(255, 255, 255));
         DeleteButton.setText("Delete");
+        DeleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteButtonMouseClicked(evt);
+            }
+        });
 
         ResetButton.setBackground(new java.awt.Color(57, 20, 162));
         ResetButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -187,6 +212,18 @@ public class EditMemberPage extends javax.swing.JFrame {
         ResetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ResetButtonActionPerformed(evt);
+            }
+        });
+
+        MemberhsipDurationComboBox.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        MemberhsipDurationComboBox.setForeground(new java.awt.Color(255, 255, 255));
+        MemberhsipDurationComboBox.setText("Membership Duration:");
+
+        MembershipDurationCBox.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        MembershipDurationCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monthly", "Annual", "6 Month" }));
+        MembershipDurationCBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MembershipDurationCBoxActionPerformed(evt);
             }
         });
 
@@ -209,9 +246,9 @@ public class EditMemberPage extends javax.swing.JFrame {
                                     .addComponent(PhoneNoField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(FirstNameText)
                                     .addComponent(FirstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EmailField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(PaymentField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(AgeField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(98, 98, 98)
+                                .addGap(80, 80, 80)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(DOBText)
                                     .addComponent(LastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,18 +261,25 @@ public class EditMemberPage extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(FemaleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(EmailText)
-                                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TrainerCategoryText)
-                                    .addComponent(TrainerCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(AddressField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(UpdateButton)
                                     .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(66, 66, 66)
-                                .addComponent(DeleteButton)
-                                .addGap(56, 56, 56)
-                                .addComponent(ResetButton))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(66, 66, 66)
+                                        .addComponent(DeleteButton)
+                                        .addGap(56, 56, 56)
+                                        .addComponent(ResetButton))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(98, 98, 98)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TrainerCategoryText)
+                                            .addComponent(TrainerCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(MembershipDurationCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(MemberhsipDurationComboBox)))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addComponent(MembershipText))
@@ -243,7 +287,7 @@ public class EditMemberPage extends javax.swing.JFrame {
                         .addGap(122, 122, 122)
                         .addComponent(MemberIDText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MemberIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(SearchButton)))
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -256,7 +300,7 @@ public class EditMemberPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MemberIDText)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MemberIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SearchButton))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -274,7 +318,7 @@ public class EditMemberPage extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(DatechooserText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(AgeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddressText)
                     .addComponent(FirstNameText5)
@@ -283,25 +327,31 @@ public class EditMemberPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AddressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PhoneNoText)
+                            .addComponent(EmailText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PhoneNoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56)
+                        .addComponent(PaymentText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PaymentField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(MemberhsipDurationComboBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MembershipDurationCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PhoneNoText)
-                    .addComponent(EmailText))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PhoneNoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PaymentText)
+                    .addComponent(GymTimeText)
                     .addComponent(TrainerCategoryText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EmailField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TrainerCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addComponent(GymTimeText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(GymTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UpdateButton)
@@ -434,7 +484,7 @@ public class EditMemberPage extends javax.swing.JFrame {
     private void BackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackButtonMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        Membershipadd ss  = new Membershipadd();
+        Dashboard ss = new Dashboard();
         ss.setVisible(true);
     }//GEN-LAST:event_BackButtonMouseClicked
 
@@ -447,9 +497,131 @@ public class EditMemberPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         setVisible(false);
         new EditMemberPage().setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_ResetButtonActionPerformed
+
+    private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
+        // TODO add your handling code here:
+        int checkId = 0;
+        String member_id = MemberIDTextField.getText();
+        //String member_id1 = MemberIDTextField.getText();
+        boolean memberFound = false;
+
+        try {
+            Connection con = DB.connect();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from member where member_id='" + member_id + "'");
+            while (rs.next()) {
+                FirstNameField.setText(rs.getString("first_name"));
+                LastNameField.setText(rs.getString("last_name"));
+                AgeField.setText(String.valueOf(rs.getInt("age")));
+                DatechooserText.setDate(rs.getDate("date_of_birth"));
+                AddressField.setText(rs.getString("address"));
+                if (rs.getString("gender").equals("Male")) {
+                    MaleRadioButton.setSelected(true);
+                    FemaleRadioButton.setSelected(false);
+                }
+                else {
+                    MaleRadioButton.setSelected(false);
+                    FemaleRadioButton.setSelected(true);
+                }
+                PhoneNoField.setText(rs.getString("phoneNumber"));
+                EmailField.setText(rs.getString("email"));
+                PaymentField.setText(rs.getString("payment"));
+                TrainerCategoryComboBox.setSelectedItem(rs.getString("trainer_category"));
+                GymTimeComboBox.setSelectedItem(rs.getString("gym_time"));
+                
+               
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "connection error");
+        }
+    }//GEN-LAST:event_SearchButtonMouseClicked
+
+    private void UpdateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UpdateButtonMouseClicked
+        // TODO add your handling code here:
+        
+            String regex = "\\d{10}";
+         if(FirstNameField.getText().equals("")
+            || LastNameField.getText().equals("") 
+            || AgeField.getText().equals("")
+            ||  DatechooserText.getDate()==null
+            ||  AddressField.getText().equals("")
+            || PhoneNoField.getText().equals("")
+            || EmailField.getText().equals("")
+            || PaymentField.getText().equals("")
+            || MembershipDurationCBox.getSelectedItem()==null
+            || GymTimeComboBox.getSelectedItem() == null
+            || TrainerCategoryComboBox.getSelectedItem() == null   ){
+                JOptionPane.showMessageDialog(null, "Unfilled Credentials");
+
+        }else if(!(PhoneNoField.getText().matches(regex))){
+            JOptionPane.showMessageDialog(rootPane, "Invalid Contact. Enter contact number with 10 digits and no characters ");
+        }else if(!(EmailField.getText().endsWith(".com")) || !(EmailField.getText().contains("@"))) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Email Format");
+        }
+        
+        else{
+        String first_name = FirstNameField.getText();
+        String last_name = LastNameField.getText();
+        int age = Integer.parseInt(AgeField.getText());
+        java.util.Date date_of_birth = DatechooserText.getDate();
+        String address = AddressField.getText();
+        String gender;
+        if (MaleRadioButton.isSelected()) {
+            gender = "Male";
+        } else if (FemaleRadioButton.isSelected()) {
+            gender = "Female";
+        } else {
+            gender = "none";
+        }
+        int membership_duration = 0;
+        if(MembershipDurationCBox.getSelectedItem().equals("Monthly")){
+            membership_duration = 1;
+        }else if(MembershipDurationCBox.getSelectedItem().equals("Annual")){
+            membership_duration = 12;
+        }else if(MembershipDurationCBox.getSelectedItem().equals("Six Months")){
+            membership_duration = 6;}
+        String phone_number= PhoneNoField.getText();
+        String email = EmailField.getText();
+        int payment = Integer.parseInt(PaymentField.getText());
+        
+        String gym_time = (String) GymTimeComboBox.getSelectedItem();
+        String trainer = (String) TrainerCategoryComboBox.getSelectedItem();
+        setVisible(false);
+        new EditMemberPage().setVisible(true);
+        
+       int  member_id = Integer.parseInt(MemberIDTextField.getText());
+        Member member  = new Member(first_name, last_name,  age,  address,  phone_number,  email, membership_duration, gym_time,   payment,  date_of_birth,  trainer,  gender );
+        try {
+            memberDao.updateMember_Page(member, member_id);
+          JOptionPane.showMessageDialog(rootPane, "You have update member details successfully");
+            
+        } catch (SQLException ex) {
+            System.out.println("Error");
+            Logger.getLogger(EditMemberPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                }
+    }//GEN-LAST:event_UpdateButtonMouseClicked
+
+    private void MembershipDurationCBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MembershipDurationCBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MembershipDurationCBoxActionPerformed
+
+    private void DeleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteButtonMouseClicked
+        // TODO add your handling code here:
+        int member_id = Integer.parseInt(MemberIDTextField.getText());
+        try {
+            Delete_Member(member_id);
+            setVisible(false);
+             new EditMemberPage().setVisible(true);
+             JOptionPane.showMessageDialog(rootPane, "The member is deleted successfully");
+        } catch (SQLException ex) {
+            Logger.getLogger(EditMemberPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_DeleteButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -497,7 +669,6 @@ public class EditMemberPage extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser DatechooserText;
     private javax.swing.JButton DeleteButton;
     private javax.swing.JTextField EmailField;
-    private javax.swing.JTextField EmailField1;
     private javax.swing.JLabel EmailText;
     private javax.swing.JButton ExitButton;
     private javax.swing.JRadioButton FemaleRadioButton;
@@ -511,7 +682,11 @@ public class EditMemberPage extends javax.swing.JFrame {
     private javax.swing.JLabel LastNameText;
     private javax.swing.JRadioButton MaleRadioButton;
     private javax.swing.JLabel MemberIDText;
+    private javax.swing.JTextField MemberIDTextField;
+    private javax.swing.JLabel MemberhsipDurationComboBox;
+    private javax.swing.JComboBox<String> MembershipDurationCBox;
     private javax.swing.JLabel MembershipText;
+    private javax.swing.JTextField PaymentField;
     private javax.swing.JLabel PaymentText;
     private javax.swing.JTextField PhoneNoField;
     private javax.swing.JLabel PhoneNoText;
@@ -524,6 +699,5 @@ public class EditMemberPage extends javax.swing.JFrame {
     private javax.swing.JLabel image5Field;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
